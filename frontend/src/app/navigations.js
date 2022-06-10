@@ -14,7 +14,7 @@ export const navigations = [
   },
 
   {
-    name: "CU 36 Registrar RT",
+    name: "36 - RT en mantenimiento",
     icon: "group_work",
     path: "/scrum-board/c5d7498bbcb84d81fc7454448871ac6a6e",
   },

@@ -1,21 +1,10 @@
-import React, { useEffect } from "react";
-import {
-  Card,
-  TextField,
-  MenuItem,
-  IconButton,
-  Icon,
-  Grid,
-} from "@material-ui/core";
-import StatCard3 from "./shared/StatCard3";
-import StatCard4 from "./shared/StatCard4";
-import GaugeProgressCard from "./shared/GuageProgressCard";
-import FollowerCard from "./shared/FollowerCard";
-import FollowerCard2 from "./shared/FollowerCard2";
+import React, { useEffect, useState } from "react";
+import { Card, IconButton, Icon, Grid } from "@material-ui/core";
 
 import api from "api";
 
-const Analytics2 = () => {
+const Dashboard = () => {
+  const [statList, setStatList] = useState([]);
   useEffect(() => {
     (async () => {
       const { data } = await api.get("");
@@ -28,31 +17,25 @@ const Analytics2 = () => {
         <h3 className="m-0">Overview</h3>
       </div>
 
-      <StatCard3 />
-
-      <Card className="mt-5 mb-6" elevation={3}>
-        <div className=" px-4 py-3 mb-6 flex justify-between items-center bg-light-gray">
-          <span className="font-medium text-muted">STATISTICS</span>
-          <IconButton size="small">
-            <Icon>more_horiz</Icon>
-          </IconButton>
-        </div>
-      </Card>
-
       <Grid container spacing={3}>
-        <Grid item md={4} xs={12}>
-          <StatCard4 />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <GaugeProgressCard />
-        </Grid>
-        <Grid item md={4} xs={12}>
-          <FollowerCard />
-          <FollowerCard2 />
-        </Grid>
+        {statList.map((item, ind) => (
+          <Grid key={item.title} item md={3} sm={6} xs={12}>
+            <Card elevation={3} className="p-5 flex">
+              <div>
+                <IconButton size="small" className="p-2 bg-light-gray">
+                  <Icon className="text-muted">{item.icon}</Icon>
+                </IconButton>
+              </div>
+              <div className="ml-4">
+                <h3 className="mt-1 text-32">{item.amount.toLocaleString()}</h3>
+                <p className="m-0 text-muted">{item.title}</p>
+              </div>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
     </div>
   );
 };
 
-export default Analytics2;
+export default Dashboard;

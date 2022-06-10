@@ -3,6 +3,21 @@ const cors = require('cors');
 require('dotenv').config();
 const moment = require('moment');
 
+const RecursoTecnologico = require('./classes/RecursoTecnologico')
+const CambioEstadoTurno = require('./classes/CambioEstadoTurno')
+const Turno = require('./classes/Turno')
+const Estado = require('./classes/Estado')
+
+//Logica de backend
+
+const RT = new RecursoTecnologico()
+console.log(RT.getNumeroRT())
+
+
+
+
+
+//Servidor
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
@@ -11,8 +26,6 @@ app.use(express.json());
 // CORS implemented so that we don't get errors when trying to access the server from a different server location
 app.use(cors());
 
-//GET : Fetch fuel consumption and margin data
-
 
 app.get('/', (req, res) => {
    res.json({
@@ -20,6 +33,7 @@ app.get('/', (req, res) => {
    })
 
 })
+
 
 
 const port = process.env.PORT || 8085;
