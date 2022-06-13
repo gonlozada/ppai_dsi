@@ -10,6 +10,8 @@ const RecursoTecnologico = require('./classes/RecursoTecnologico')
 const Session = require('./classes/Session')
 const Turno = require('./classes/Turno')
 const Usuario = require('./classes/Usuario')
+const Modelo = require('./classes/Modelo')
+const Marca = require('./classes/Marca')
 
 
 const db = {
@@ -19,6 +21,8 @@ const db = {
    Estado: [],
    PersonalCientifico: [],
    TipoRecursoTecnologico: [],
+   Modelo: [],
+   Marca: [],
    RecursoTecnologico: [],
    Turno: [],
    Usuario: [],
@@ -160,8 +164,29 @@ db.TipoRecursoTecnologico.push(
       nombre: "TipoRT B"
    })
 )
+
+//
+db.Modelo.push(
+   new Modelo({
+      id: db.Modelo.length,
+      nombre: "ModeloRT 1",
+   })
+)
+db.Modelo.push(
+   new Modelo({
+      id: db.Modelo.length,
+      nombre: "ModeloRT 2",
+   })
+)
+db.Marca.push(
+   new Marca({
+      nombre: "Marca RTS",
+      modelos: db.Modelo//todos  
+   })
+)
 //Recursos Tecnologicos----------------------------------------------------------------------
 //new
+
 db.CambioEstadoRT.push(
    new CambioEstadoRT({
       id: db.CambioEstadoRT.length,
@@ -176,12 +201,14 @@ db.RecursoTecnologico.push(
       fechaAlta: new Date(),
       fraccionHorarioTurnos: 60,
       turnos: [db.Turno[0]],
-      tipoDeRT: [db.TipoRecursoTecnologico[0]],
+      tipoDeRT: db.TipoRecursoTecnologico[0],
       cambioEstadoRT: [db.CambioEstadoRT[db.CambioEstadoRT.length - 1]],
+      modeloDelRT: db.Modelo[db.Modelo.length - 1]
    })
 )
 
 //new
+
 db.CambioEstadoRT.push(
    new CambioEstadoRT({
       id: db.CambioEstadoRT.length,
@@ -196,8 +223,9 @@ db.RecursoTecnologico.push(
       fechaAlta: new Date(),
       fraccionHorarioTurnos: 60,
       turnos: [db.Turno[1]],
-      tipoDeRT: [db.TipoRecursoTecnologico[0]],
+      tipoDeRT: db.TipoRecursoTecnologico[1],
       cambioEstadoRT: [db.CambioEstadoRT[db.CambioEstadoRT.length - 1]],
+      modeloDelRT: db.Modelo[db.Modelo.length - 1]
    })
 )
 

@@ -27,7 +27,13 @@ module.exports = class GestorRegistrarMantenimientoCorrectivo {
                const recursos = ART
                   .obtenerRT()
                   .filter(RT => RT.esRecursoDisponible())//filtrado por estado disponible
-               return recursos
+
+               for (const r of recursos)
+                  r.marca = db.Marca.find(m => m.contieneModelo(r.modeloDelRT.nombre))
+               return recursos.reduce((acc, curr) => {
+                  acc[curr.tipoDeRT.nombre] = [...(acc[curr.tipoDeRT.nombre] ?? []), curr]
+                  return acc
+               }, {})
             }
          }
 

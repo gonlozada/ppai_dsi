@@ -13,7 +13,7 @@ module.exports = class RecursoTecnologico {
    cambioEstadoRT
    // disponibilidad
    // mantenimientos
-   // modeloDelRT
+   modeloDelRT
    tipoDeRT
 
    constructor({
@@ -28,7 +28,7 @@ module.exports = class RecursoTecnologico {
       cambioEstadoRT,
       // disponibilidad,
       // mantenimientos,
-      // modeloDelRT,
+      modeloDelRT,
       tipoDeRT,
    }) {
       this.id = id
@@ -42,7 +42,7 @@ module.exports = class RecursoTecnologico {
       this.cambioEstadoRT = cambioEstadoRT
       // this.disponibilidad = disponibilidad
       // this.mantenimientos = mantenimientos
-      // this.modeloDelRT = modeloDelRT
+      this.modeloDelRT = modeloDelRT
       this.tipoDeRT = tipoDeRT
    }
 
@@ -106,8 +106,8 @@ module.exports = class RecursoTecnologico {
    // getMantenimientos = () => this.mantenimientos
    // setMantenimientos = (value) => this.mantenimientos = value
 
-   // getModeloDelRT = () => this.modeloDelRT
-   // setModeloDelRT = (value) => this.modeloDelRT = value
+   getModeloDelRT = () => this.modeloDelRT
+   setModeloDelRT = (value) => this.modeloDelRT = value
 
    getTipoDeRT = () => this.tipoDeRT
    setTipoDeRT = (value) => this.tipoDeRT = value

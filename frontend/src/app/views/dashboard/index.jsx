@@ -9,6 +9,7 @@ const Dashboard = () => {
     (async () => {
       const { data } = await api.get("");
       console.log("SAITAMA", data);
+      setStatList(data);
     })();
   }, []);
   return (
@@ -16,8 +17,8 @@ const Dashboard = () => {
       <div className="flex justify-between items-center items-center mb-6">
         <h3 className="m-0">Overview</h3>
       </div>
-
-      <Grid container spacing={3}>
+      <pre>{JSON.stringify(statList, null, 2)}</pre>
+      {/* <Grid container spacing={3}>
         {statList.map((item, ind) => (
           <Grid key={item.title} item md={3} sm={6} xs={12}>
             <Card elevation={3} className="p-5 flex">
@@ -33,7 +34,7 @@ const Dashboard = () => {
             </Card>
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
     </div>
   );
 };
