@@ -1,4 +1,4 @@
-module.exports = class CambioEstadoTurno {
+module.exports = class Session {
    id
 
    //Atributos propios
@@ -6,26 +6,23 @@ module.exports = class CambioEstadoTurno {
    fechaHoraHasta
 
    //Atributos puntero
-   estado
+   usuario
 
 
    constructor({
       id,
       fechaHoraDesde,
       fechaHoraHasta,
-      estado
+      usuario
    }) {
       this.id = id
       this.fechaHoraDesde = fechaHoraDesde
       this.fechaHoraHasta = fechaHoraHasta
-      this.estado = estado
+      this.usuario = usuario
    }
 
 
    //metodos 
-   mostrarCambioEstadoTurno = () => {
-
-   }
 
    //getters and setters
    getFechaHoraDesde = () => this.fechaHoraDesde
@@ -34,8 +31,8 @@ module.exports = class CambioEstadoTurno {
    getFechaHoraHasta = () => this.fechaHoraHasta
    setFechaHoraHasta = (value) => this.fechaHoraHasta = value
 
-   getEstado = () => this.estado
-   setEstado = (value) => this.estado = value
+   getUsuario = () => this.usuario
+   setUsuario = (value) => this.usuario = value
 
 
 

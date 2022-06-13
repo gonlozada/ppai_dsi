@@ -6,6 +6,11 @@ const dashboardRoutes = [
     path: "/dashboard",
     component: React.lazy(() => import("./views/dashboard")),
   },
+  {
+    path: "/cu36",
+    component: React.lazy(() => import("./views/RTenMantCorrectivo")),
+  },
+  
 ];
 
 const redirectRoute = [

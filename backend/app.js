@@ -1,21 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const moment = require('moment');
+const db = require('./db')
 
-const RecursoTecnologico = require('./classes/RecursoTecnologico')
-const CambioEstadoTurno = require('./classes/CambioEstadoTurno')
-const Turno = require('./classes/Turno')
-const Estado = require('./classes/Estado')
+const GestorRegistrarMantenimientoCorrectivo = require('./gestores/GestorRegistrarMantenimientoCorrectivo')
 
 //Logica de backend
 
-const RT = new RecursoTecnologico()
-console.log(RT.getNumeroRT())
-
-
-
-
+const gestor = new GestorRegistrarMantenimientoCorrectivo()
 
 //Servidor
 const app = express();
@@ -28,10 +20,14 @@ app.use(cors());
 
 
 app.get('/', (req, res) => {
-   res.json({
-      message: "I am alive"
-   })
+   res.json(db)
+})
 
+app.get('/opcionRegistrarRTEnMantenimientoCorrectivo', (req, res) => {
+
+   const resp = gestor.opcionRegistrarRTEnMantenimientoCorrectivo()
+
+   res.json(resp)
 })
 
 

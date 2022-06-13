@@ -1,25 +1,26 @@
 module.exports = class Estado {
+   id
    //Atributos propios
-   #nombre
-   #descripcion
-   #ambito
-   #esReservable
-   #esCancelable
+   nombre
+   descripcion
+   ambito
+   esReservable
+   esCancelable
 
-   constructor(
+   constructor({
+      id,
       nombre,
       descripcion,
-      estado,
       ambito,
       esReservable,
       esCancelable,
-   ) {
-      this.#nombre = nombre
-      this.#descripcion = descripcion
-      this.#estado = estado
-      this.#ambito = ambito
-      this.#esReservable = esReservable
-      this.#esCancelable = esCancelable
+   }) {
+      this.id = id
+      this.nombre = nombre
+      this.descripcion = descripcion
+      this.ambito = ambito
+      this.esReservable = esReservable
+      this.esCancelable = esCancelable
    }
 
 
@@ -27,22 +28,25 @@ module.exports = class Estado {
    mostrarEstado = () => {
 
    }
+   esDisponible = () => {
+      return this.nombre === "Disponible"
+   }
 
    //getters and setters
-   getNombre = () => this.#nombre
-   setNombre = (value) => this.#nombre = value
+   getNombre = () => this.nombre
+   setNombre = (value) => this.nombre = value
 
-   getDescripcion = () => this.#descripcion
-   setDescripcion = (value) => this.#descripcion = value
+   getDescripcion = () => this.descripcion
+   setDescripcion = (value) => this.descripcion = value
 
-   getAmbito = () => this.#ambito
-   setAmbito = (value) => this.#ambito = value
+   getAmbito = () => this.ambito
+   setAmbito = (value) => this.ambito = value
 
-   getEsReservable = () => this.#esReservable
-   setEsReservable = (value) => this.#esReservable = value
+   getEsReservable = () => this.esReservable
+   setEsReservable = (value) => this.esReservable = value
 
-   getEsCancelable = () => this.#esCancelable
-   setEsCancelable = (value) => this.#esCancelable = value
+   getEsCancelable = () => this.esCancelable
+   setEsCancelable = (value) => this.esCancelable = value
 
 
 

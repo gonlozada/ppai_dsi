@@ -14,9 +14,9 @@ export const navigations = [
   },
 
   {
-    name: "36 - RT en mantenimiento",
+    name: "Reg RT Mant Correctivo",
     icon: "group_work",
-    path: "/scrum-board/c5d7498bbcb84d81fc7454448871ac6a6e",
+    path: "/cu36",
   },
   
 ];
