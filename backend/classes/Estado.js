@@ -4,23 +4,17 @@ module.exports = class Estado {
    nombre
    descripcion
    ambito
-   esReservable
-   esCancelable
 
    constructor({
       id,
       nombre,
       descripcion,
       ambito,
-      esReservable,
-      esCancelable,
    }) {
       this.id = id
       this.nombre = nombre
       this.descripcion = descripcion
       this.ambito = ambito
-      this.esReservable = esReservable
-      this.esCancelable = esCancelable
    }
 
 
@@ -30,6 +24,10 @@ module.exports = class Estado {
    }
    esDisponible = () => {
       return this.nombre === "Disponible"
+   }
+
+   esCancelable = () => {
+      return ["Confirmada", "PendienteConfirmacion"].includes(this.nombre)
    }
 
    //getters and setters

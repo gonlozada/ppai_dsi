@@ -23,8 +23,12 @@ module.exports = class CambioEstadoTurno {
 
 
    //metodos 
-   mostrarCambioEstadoTurno = () => {
 
+   esActual = () => {
+      return !this.fechaHoraHasta
+   }
+   esCancelable = () => {
+      return this.estado.esCancelable()
    }
 
    //getters and setters

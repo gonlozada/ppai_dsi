@@ -24,12 +24,15 @@ app.get('/', (req, res) => {
 })
 
 app.get('/opcionRegistrarRTEnMantenimientoCorrectivo', (req, res) => {
-
    const resp = gestor.opcionRegistrarRTEnMantenimientoCorrectivo()
-
    res.json(resp)
 })
 
+
+app.post('/opcionRegistrarRTEnMantenimientoCorrectivo/tomarDatosMantenimiento', (req, res) => {
+   const resp = gestor.tomarDatosMantenimiento(req.body)
+   res.json(resp)
+})
 
 
 const port = process.env.PORT || 8085;

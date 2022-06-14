@@ -34,13 +34,17 @@ module.exports = class PersonalCientifico {
 
 
    //metodos 
-   mostrarPersonalCientifico = () => {
-
+   obtenerMailYNombre = () => {
+      return {
+         nombre: this.getNombre(),
+         correoElectronicoPersonal: this.getEmail()
+      }
    }
-   inhabilitarUsuario = () => {
-
+   getNombre = () => {
+      return this.nombre
    }
-   habilitarUsuario = () => {
+   getEmail = () => {
+      return this.correoElectronicoInstitucional
 
    }
    tengoUsuarioHabilitado = () => {

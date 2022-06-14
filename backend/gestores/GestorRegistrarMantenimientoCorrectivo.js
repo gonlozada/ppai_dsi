@@ -3,6 +3,10 @@ const db = require('../db')
 module.exports = class GestorRegistrarMantenimientoCorrectivo {
    usuarioActual
    recursos
+   recursoSeleccionado
+   fechaFinMantenimiento
+   razon
+   turnosCancelables
 
    constructor() {
 
@@ -40,5 +44,43 @@ module.exports = class GestorRegistrarMantenimientoCorrectivo {
       }
    }
 
+   tomarDatosMantenimiento = (datos) => {
+      this.recursoSeleccionado = db.RecursoTecnologico.find(r => r.id === datos.recursoSeleccionado)
+      this.fechaInicioMantenimiento = new Date()
+      this.fechaFinMantenimiento = new Date(datos.fechaFinMantenimiento)
+      this.razon = datos.razon
 
+      return this.buscarReservasTurnos()
+   }
+
+   buscarReservasTurnos = () => {
+      this.turnosCancelables = this.recursoSeleccionado.obtenerReservasTurnos(this.fechaInicioMantenimiento, this.fechaFinMantenimiento)
+      return this.buscarDatosTurnosC()
+
+   }
+
+   buscarDatosTurnosC = () => {
+      for (const index in this.turnosCancelables) {
+         //obtengo todos los datos del turno y los seteo en una variable temporal llamada datos para el front-end
+         this.turnosCancelables[index] = this.turnosCancelables[index].obtenerDatos()
+
+         //busco el cientifico asignado al CI que contiene este turno de esta iteracion
+         const asignacionCientificoDelCI = db.AsignacionCientificoDelCI.find(a => a.contieneTurnoId(this.turnosCancelables[index].id))
+
+         //le anido los datos de su personal cientifico
+         this.turnosCancelables[index].personalCientifico = asignacionCientificoDelCI.obtenerMailYNombre()
+
+      }
+
+      return this.agruparPC()
+   }
+
+   agruparPC = () => {
+      const grupos = this.turnosCancelables.reduce((acc, curr) => {
+         acc[curr.personalCientifico.nombre] = curr
+         return acc
+      }, {})
+
+      return grupos
+   }
 }

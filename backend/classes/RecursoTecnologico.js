@@ -66,14 +66,25 @@ module.exports = class RecursoTecnologico {
    nuevoMantenimientoPreventivo = () => {
 
    }
-   misTUrnosDisponibles = () => {
+   obtenerReservasTurnos = (fechaInicio, fechaFin) => {
+      const resultado = []
+      console.log({fechaInicio, fechaFin})
+      for (const turno of this.turnos) {
+         console.log("TURNOID : ", turno.id)
+         if (
+            turno.fechaHoraInicio >= fechaInicio &&
+            turno.fechaHoraInicio <= fechaFin &&
+            turno.esCancelable()
+         )
+            resultado.push(turno)
 
+      }
+      return resultado
    }
    esRecursoDisponible = () => {
       const actual = this.cambioEstadoRT.find(cambio => cambio.esActual())
       return actual.esDisponible()
    }
-
 
    //getters and setters
    getNumeroRT = () => this.numeroRT

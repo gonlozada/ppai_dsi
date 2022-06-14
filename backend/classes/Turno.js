@@ -18,6 +18,7 @@ module.exports = class Turno {
       fechaHoraFin,
       cambioEstadoTurno
    }) {
+      this.id = id
       this.fechaGeneracion = fechaGeneracion
       this.diaSemana = diaSemana
       this.fechaHoraInicio = fechaHoraInicio
@@ -33,7 +34,19 @@ module.exports = class Turno {
    estoyDisponible = () => {
 
    }
-
+   esCancelable = () => {
+      const actual = this.cambioEstadoTurno.find(cambio => cambio.esActual())
+      return actual.esCancelable()
+   }
+   obtenerDatos = () => {
+      return {
+         id: this.id,
+         fechaGeneracion: this.fechaGeneracion,
+         diaSemana: this.diaSemana,
+         fechaHoraInicio: this.fechaHoraInicio,
+         fechaHoraFin: this.fechaHoraFin,
+      }
+   }
 
    //getters and setters
    getFechaGeneracion = () => this.fechaGeneracion
