@@ -176,6 +176,15 @@ const RTenMantCorrectivo = () => {
                 <Grid item xs={12}>
                   <div className="flex justify-end mt-2">
                     <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => window.location.reload()}
+                      className="mr-4"
+                      disabled={recursoSeleccionado === ""}
+                    >
+                      Cancelar
+                    </Button>
+                    <Button
                       variant="contained"
                       color="primary"
                       onClick={handleStep1}
@@ -198,50 +207,60 @@ const RTenMantCorrectivo = () => {
                   style={{
                     fontSize: 16,
                     textAlign: "center",
+                    fontWeight: "500",
                   }}
                 >
-                  <span>Turnos a cancelar</span>
+                  <span>TURNOS A CANCELAR</span>
                 </Grid>
-                {Object.keys(turnosACancelar).map((cientifico) => (
-                  <div key={cientifico} className="mt-5 mb-3">
-                    <div>
-                      <b>{cientifico}</b>
-                    </div>
-                    <Table aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Fecha</TableCell>
-                          <TableCell>Hora</TableCell>
-                          <TableCell>Cientifico</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {turnosACancelar[cientifico].map((row) => (
-                          <TableRow
-                            key={row.id}
-                            sx={{
-                              "&:last-child td, &:last-child th": {
-                                border: 0,
-                              },
-                            }}
-                          >
-                            <TableCell component="th" scope="row">
-                              {moment(row.fechaHoraInicio).format("DD/MM/YYYY")}
-                            </TableCell>
-                            <TableCell>
-                              {moment(row.fechaHoraInicio).format("hh:mm A")}
-                            </TableCell>
-                            <TableCell>
-                              {row.personalCientifico.nombre} (
-                              {row.personalCientifico.correoElectronicoPersonal}
-                              )
-                            </TableCell>
+                {turnosACancelar && Object.keys(turnosACancelar).length ? (
+                  Object.keys(turnosACancelar).map((cientifico) => (
+                    <div key={cientifico} className="mt-5 mb-3">
+                      <div>
+                        <b>{cientifico}</b>
+                      </div>
+                      <Table aria-label="simple table">
+                        <TableHead>
+                          <TableRow>
+                            <TableCell>Fecha</TableCell>
+                            <TableCell>Hora</TableCell>
+                            <TableCell>Cientifico</TableCell>
                           </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </div>
-                ))}
+                        </TableHead>
+                        <TableBody>
+                          {turnosACancelar[cientifico].map((row) => (
+                            <TableRow
+                              key={row.id}
+                              sx={{
+                                "&:last-child td, &:last-child th": {
+                                  border: 0,
+                                },
+                              }}
+                            >
+                              <TableCell component="th" scope="row">
+                                {moment(row.fechaHoraInicio).format(
+                                  "DD/MM/YYYY"
+                                )}
+                              </TableCell>
+                              <TableCell>
+                                {moment(row.fechaHoraInicio).format("hh:mm A")}
+                              </TableCell>
+                              <TableCell>
+                                {row.personalCientifico.nombre} (
+                                {
+                                  row.personalCientifico
+                                    .correoElectronicoPersonal
+                                }
+                                )
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  ))
+                ) : (
+                  <div>No hay turnos a cancelar...</div>
+                )}
                 <Grid
                   item
                   xs={12}
@@ -249,9 +268,10 @@ const RTenMantCorrectivo = () => {
                     fontSize: 16,
                     textAlign: "center",
                     marginTop: 30,
+                    fontWeight: "500",
                   }}
                 >
-                  <span>Confirmar datos</span>
+                  <span>CONFIRMAR DATOS</span>
                 </Grid>
                 <Grid item xs={12}>
                   <b className="pr-5">Producto Seleccionado:</b>
@@ -267,6 +287,7 @@ const RTenMantCorrectivo = () => {
                     control={
                       <Checkbox
                         checked={notifEmail}
+                        color="primary"
                         onChange={({ target }) =>
                           setNotifWEmail(target.checked)
                         }
@@ -278,6 +299,7 @@ const RTenMantCorrectivo = () => {
                     control={
                       <Checkbox
                         checked={notifWhastapp}
+                        color="primary"
                         onChange={({ target }) =>
                           setNotifWhatsapp(target.checked)
                         }
@@ -288,6 +310,14 @@ const RTenMantCorrectivo = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <div className="flex justify-end mt-2">
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => window.location.reload()}
+                      className="mr-4"
+                    >
+                      Cancelar
+                    </Button>
                     <Button
                       variant="contained"
                       color="primary"

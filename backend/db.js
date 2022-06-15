@@ -169,8 +169,8 @@ db.Turno.push(
       id: db.Turno.length,
       fechaGeneracion: new Date(),
       diaSemana: moment().isoWeekday(),
-      fechaHoraInicio: moment("17:00:00", "HH:mm:ss").toDate(),
-      fechaHoraFin: moment("20:00:00", "HH:mm:ss").toDate(),
+      fechaHoraInicio: moment("17:00:00", "HH:mm:ss").add(1, 'day').toDate(),
+      fechaHoraFin: moment("20:00:00", "HH:mm:ss").add(1, 'day').toDate(),
       cambioEstadoTurno: [db.CambioEstadoTurno[db.CambioEstadoTurno.length - 1]]
    })
 )
@@ -188,8 +188,8 @@ db.Turno.push(
       id: db.Turno.length,
       fechaGeneracion: new Date(),
       diaSemana: moment().isoWeekday(),
-      fechaHoraInicio: moment("20:00:00", "HH:mm:ss").toDate(),
-      fechaHoraFin: moment("22:00:00", "HH:mm:ss").toDate(),
+      fechaHoraInicio: moment("20:00:00", "HH:mm:ss").add(1, 'day').toDate(),
+      fechaHoraFin: moment("22:00:00", "HH:mm:ss").add(1, 'day').toDate(),
       cambioEstadoTurno: [db.CambioEstadoTurno[db.CambioEstadoTurno.length - 1]]
    })
 )
@@ -206,8 +206,8 @@ db.Turno.push(
       id: db.Turno.length,
       fechaGeneracion: new Date(),
       diaSemana: moment().isoWeekday(),
-      fechaHoraInicio: moment("16:00:00", "HH:mm:ss").add(3, 'days').toDate(),
-      fechaHoraFin: moment("20:00:00", "HH:mm:ss").add(3, 'days').toDate(),
+      fechaHoraInicio: moment("16:00:00", "HH:mm:ss").add(2, 'days').toDate(),
+      fechaHoraFin: moment("20:00:00", "HH:mm:ss").add(2, 'days').toDate(),
       cambioEstadoTurno: [db.CambioEstadoTurno[db.CambioEstadoTurno.length - 1]]
    })
 )
@@ -230,6 +230,24 @@ db.Turno.push(
    })
 )
 
+db.CambioEstadoTurno.push(
+   new CambioEstadoTurno({
+      id: db.CambioEstadoTurno.length,
+      fechaHoraDesde: new Date(),
+      estado: db.Estado[3]
+   })
+)
+db.Turno.push(
+   new Turno({
+      id: db.Turno.length,
+      fechaGeneracion: new Date(),
+      diaSemana: moment().isoWeekday(),
+      fechaHoraInicio: moment("13:00:00", "HH:mm:ss").add(4, 'days').toDate(),
+      fechaHoraFin: moment("17:00:00", "HH:mm:ss").add(4, 'days').toDate(),
+      cambioEstadoTurno: [db.CambioEstadoTurno[db.CambioEstadoTurno.length - 1]]
+   })
+)
+
 //AsignacionCientificoDelCI----------------------------------------------------------------------
 //new
 
@@ -245,7 +263,7 @@ db.AsignacionCientificoDelCI.push(
    new AsignacionCientificoDelCI({
       fechaDesde: moment().add(2, 'day'),
       fechaHasta: moment().add(4, 'day'),
-      turnos: [db.Turno[2], db.Turno[3]],
+      turnos: [db.Turno[2], db.Turno[3], db.Turno[4]],
       personalCientifico: db.PersonalCientifico[2]
    })
 )
@@ -350,7 +368,7 @@ db.RecursoTecnologico.push(
       numeroRT: 1000 + db.RecursoTecnologico.length * 4,
       fechaAlta: new Date(),
       fraccionHorarioTurnos: 60,
-      turnos: [db.Turno[3]],
+      turnos: [db.Turno[3], db.Turno[4]],
       tipoDeRT: db.TipoRecursoTecnologico[0],
       cambioEstadoRT: [db.CambioEstadoRT[db.CambioEstadoRT.length - 1]],
       modeloDelRT: db.Modelo[1]
@@ -371,7 +389,7 @@ db.RecursoTecnologico.push(
       numeroRT: 1000 + db.RecursoTecnologico.length * 4,
       fechaAlta: new Date(),
       fraccionHorarioTurnos: 60,
-      turnos: [db.Turno[4]],
+      turnos: [db.Turno[1], db.Turno[4]],
       tipoDeRT: db.TipoRecursoTecnologico[1],
       cambioEstadoRT: [db.CambioEstadoRT[db.CambioEstadoRT.length - 1]],
       modeloDelRT: db.Modelo[2]
@@ -392,7 +410,7 @@ db.RecursoTecnologico.push(
       numeroRT: 1000 + db.RecursoTecnologico.length * 4,
       fechaAlta: new Date(),
       fraccionHorarioTurnos: 60,
-      turnos: [db.Turno[1]],
+      turnos: [db.Turno[1], db.Turno[3]],
       tipoDeRT: db.TipoRecursoTecnologico[1],
       cambioEstadoRT: [db.CambioEstadoRT[db.CambioEstadoRT.length - 1]],
       modeloDelRT: db.Modelo[3]

@@ -54,6 +54,7 @@ module.exports = class RecursoTecnologico {
 
    obtenerReservasTurnos = (fechaInicio, fechaFin) => {
       const resultado = []
+      console.log({ fechaInicio, fechaFin })
       for (const turno of this.turnos) {
          if (
             turno.fechaHoraInicio >= fechaInicio &&
