@@ -22,6 +22,7 @@ const db = {
    CambioEstadoTurno: [],
    CambioEstadoRT: [],
    RecursoTecnologico: [],
+   Mantenimiento: [],
    TipoRecursoTecnologico: [],
    PersonalCientifico: [],
    Modelo: [],
@@ -30,7 +31,6 @@ const db = {
    AsignacionCientificoDelCI: [],
    AsignacionResponsableTecnicoRT: [],
    SesionActual: undefined,
-   Mantenimiento: [],
 }
 
 

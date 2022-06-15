@@ -116,7 +116,6 @@ module.exports = class GestorRegistrarMantenimientoCorrectivo {
          throw new Error("estadoCanceladoXMantenimientoCorrectivo not found")
 
       this.recursoSeleccionado.crearMantenimiento({
-         id: db.Mantenimiento.length,
          fechaInicio: new Date(),
          fechaInicioPrevista: new Date(),
          fechaFin: this.fechaFinMantenimiento,

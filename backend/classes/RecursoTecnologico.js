@@ -72,7 +72,6 @@ module.exports = class RecursoTecnologico {
    }
 
    crearMantenimiento = ({
-      id,
       fechaInicio,
       fechaInicioPrevista,
       fechaFin,
@@ -82,24 +81,27 @@ module.exports = class RecursoTecnologico {
    }) => {
 
       //crear mantenimiento nuevo
-      this.mantenimientos.push(new Mantenimiento({
-         id,
+      const indexM = db.Mantenimiento.push(new Mantenimiento({
+         id: db.Mantenimiento.length,
          fechaInicio,
          fechaInicioPrevista,
          fechaFin,
          motivoMantenimiento,
       }))
 
-      //cambio de estado
+      this.mantenimientos.push(db.Mantenimiento[indexM - 1])
+
+      //actualizar cambio de estado
       const actual = this.cambioEstadoRT.find(cambio => cambio.esActual())
       actual.setFechaHoraHasta(new Date())
 
-      const index = db.CambioEstadoRT.push(new CambioEstadoRT({
+      //nuevo cambio estado
+      const indexC = db.CambioEstadoRT.push(new CambioEstadoRT({
          id: db.CambioEstadoRT.length,
          fechaHoraDesde: new Date(),
          estado: estadoRTMantenimientoCorrectivo,
       }))
-      this.cambioEstadoRT.push(db.CambioEstadoRT[index - 1])
+      this.cambioEstadoRT.push(db.CambioEstadoRT[indexC - 1])
 
    }
 
