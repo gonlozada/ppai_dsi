@@ -1,4 +1,3 @@
-const db = require('../db')
 
 module.exports = class GestorRegistrarMantenimientoCorrectivo {
    usuarioActual
@@ -72,15 +71,66 @@ module.exports = class GestorRegistrarMantenimientoCorrectivo {
 
       }
 
-      return this.agruparPC()
+      return this.agruparPersonalCientifico()
    }
 
-   agruparPC = () => {
+   agruparPersonalCientifico = () => {
       const grupos = this.turnosCancelables.reduce((acc, curr) => {
-         acc[curr.personalCientifico.nombre] = curr
+         acc[curr.personalCientifico.nombre] = [...(acc[curr.personalCientifico.nombre] ?? []), curr]
          return acc
       }, {})
 
       return grupos
+   }
+
+   tomarConfirmacion = ({ notifEmail, notifWhatsapp }) => {
+      this.crearMantenimiento()
+
+      //Usar webservice aca para enviar notificaciones
+
+      return { message: "Notificaciones enviadas con exito" }
+   }
+
+   crearMantenimiento = () => {
+      let estadoRTMantenimientoCorrectivo
+      let estadoCanceladoXMantenimientoCorrectivo
+
+      for (const estado of db.Estado) {
+         if (estado.esAmbitoRecurso()) {
+            if (estado.esConIngresoAMantCorrectivo()) {
+               estadoRTMantenimientoCorrectivo = estado
+            }
+         }
+
+
+         if (estado.esAmbitoTurno())
+            if (estado.esCanceladoXMantenimientoCorrectivo())
+               estadoCanceladoXMantenimientoCorrectivo = estado
+
+      }
+
+      if (!estadoRTMantenimientoCorrectivo)
+         throw new Error("estadoRTMantenimientoCorrectivo not found")
+
+      if (!estadoCanceladoXMantenimientoCorrectivo)
+         throw new Error("estadoCanceladoXMantenimientoCorrectivo not found")
+
+      this.recursoSeleccionado.crearMantenimiento({
+         id: db.Mantenimiento.length,
+         fechaInicio: new Date(),
+         fechaInicioPrevista: new Date(),
+         fechaFin: this.fechaFinMantenimiento,
+         motivoMantenimiento: this.razon,
+         estadoRTMantenimientoCorrectivo
+      })
+
+
+      this.recursoSeleccionado.cancelarTurnos(this.turnosCancelables, estadoCanceladoXMantenimientoCorrectivo)
+
+      this.finCU()
+   }
+
+   finCU = () => {
+      console.log("Fin CU 36")
    }
 }

@@ -30,6 +30,18 @@ module.exports = class Estado {
       return ["Confirmada", "PendienteConfirmacion"].includes(this.nombre)
    }
 
+   esAmbitoRecurso = () => {
+      return this.ambito === 'RecursoTecnologico'
+   }
+   esConIngresoAMantCorrectivo = () => {
+      return this.nombre === "ConIngresoEnMantenimientoCorrectivo"
+   }
+   esAmbitoTurno = () => {
+      return this.ambito === 'Turno'
+   }
+   esCanceladoXMantenimientoCorrectivo = () => {
+      return this.nombre === "CanceladoPorMantenimientoCorrectivo"
+   }
    //getters and setters
    getNombre = () => this.nombre
    setNombre = (value) => this.nombre = value

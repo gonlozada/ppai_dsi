@@ -13,22 +13,24 @@ const Usuario = require('./classes/Usuario')
 const Modelo = require('./classes/Modelo')
 const Marca = require('./classes/Marca')
 const AsignacionCientificoDelCI = require('./classes/AsignacionCientificoDelCI')
+const Mantenimiento = require('./classes/Mantenimiento')
 
 
 const db = {
-   SesionActual: undefined,
-   AsignacionCientificoDelCI: [],
-   CambioEstadoRT: [],
-   CambioEstadoTurno: [],
    Estado: [],
-   PersonalCientifico: [],
+   Turno: [],
+   CambioEstadoTurno: [],
+   CambioEstadoRT: [],
+   RecursoTecnologico: [],
    TipoRecursoTecnologico: [],
+   PersonalCientifico: [],
    Modelo: [],
    Marca: [],
-   RecursoTecnologico: [],
-   Turno: [],
    Usuario: [],
+   AsignacionCientificoDelCI: [],
    AsignacionResponsableTecnicoRT: [],
+   SesionActual: undefined,
+   Mantenimiento: [],
 }
 
 

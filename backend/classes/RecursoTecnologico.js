@@ -1,3 +1,6 @@
+const CambioEstadoRT = require("./CambioEstadoRT")
+const Mantenimiento = require("./Mantenimiento")
+
 module.exports = class RecursoTecnologico {
    id
    //Atributos propios
@@ -12,7 +15,7 @@ module.exports = class RecursoTecnologico {
    turnos
    cambioEstadoRT
    // disponibilidad
-   // mantenimientos
+   mantenimientos
    modeloDelRT
    tipoDeRT
 
@@ -27,7 +30,7 @@ module.exports = class RecursoTecnologico {
       turnos,
       cambioEstadoRT,
       // disponibilidad,
-      // mantenimientos,
+      mantenimientos,
       modeloDelRT,
       tipoDeRT,
    }) {
@@ -41,36 +44,17 @@ module.exports = class RecursoTecnologico {
       this.turnos = turnos
       this.cambioEstadoRT = cambioEstadoRT
       // this.disponibilidad = disponibilidad
-      // this.mantenimientos = mantenimientos
+      this.mantenimientos = mantenimientos ?? []
       this.modeloDelRT = modeloDelRT
       this.tipoDeRT = tipoDeRT
    }
 
 
    //metodos 
-   mostrarRT = () => {
 
-   }
-   habilitar = () => {
-
-   }
-   conocerCategoria = () => {
-
-   }
-   conocerCaracteristicaRecurso = () => {
-
-   }
-   miModeloYMarca = () => {
-
-   }
-   nuevoMantenimientoPreventivo = () => {
-
-   }
    obtenerReservasTurnos = (fechaInicio, fechaFin) => {
       const resultado = []
-      console.log({fechaInicio, fechaFin})
       for (const turno of this.turnos) {
-         console.log("TURNOID : ", turno.id)
          if (
             turno.fechaHoraInicio >= fechaInicio &&
             turno.fechaHoraInicio <= fechaFin &&
@@ -81,9 +65,52 @@ module.exports = class RecursoTecnologico {
       }
       return resultado
    }
+
    esRecursoDisponible = () => {
       const actual = this.cambioEstadoRT.find(cambio => cambio.esActual())
       return actual.esDisponible()
+   }
+
+   crearMantenimiento = ({
+      id,
+      fechaInicio,
+      fechaInicioPrevista,
+      fechaFin,
+      motivoMantenimiento,
+
+      estadoRTMantenimientoCorrectivo
+   }) => {
+
+      //crear mantenimiento nuevo
+      this.mantenimientos.push(new Mantenimiento({
+         id,
+         fechaInicio,
+         fechaInicioPrevista,
+         fechaFin,
+         motivoMantenimiento,
+      }))
+
+      //cambio de estado
+      const actual = this.cambioEstadoRT.find(cambio => cambio.esActual())
+      actual.setFechaHoraHasta(new Date())
+
+      const index = db.CambioEstadoRT.push(new CambioEstadoRT({
+         id: db.CambioEstadoRT.length,
+         fechaHoraDesde: new Date(),
+         estado: estadoRTMantenimientoCorrectivo,
+      }))
+      this.cambioEstadoRT.push(db.CambioEstadoRT[index - 1])
+
+   }
+
+   cancelarTurnos = (turnosCancelables, estadoCanceladoXMantenimientoCorrectivo) => {
+
+      const turnosACancelar = this.turnos.filter(t => turnosCancelables.find(t2 => t2.id === t.id))
+
+      for (const turno of turnosACancelar) {
+         turno.cancelar(estadoCanceladoXMantenimientoCorrectivo)
+      }
+
    }
 
    //getters and setters
@@ -114,8 +141,8 @@ module.exports = class RecursoTecnologico {
    // getDisponibilidad = () => this.disponibilidad
    // setDisponibilidad = (value) => this.disponibilidad = value
 
-   // getMantenimientos = () => this.mantenimientos
-   // setMantenimientos = (value) => this.mantenimientos = value
+   getMantenimientos = () => this.mantenimientos
+   setMantenimientos = (value) => this.mantenimientos = value
 
    getModeloDelRT = () => this.modeloDelRT
    setModeloDelRT = (value) => this.modeloDelRT = value

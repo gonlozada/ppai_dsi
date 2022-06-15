@@ -1,3 +1,5 @@
+const CambioEstadoTurno = require("./CambioEstadoTurno")
+
 module.exports = class Turno {
    id
    //Atributos propios
@@ -28,12 +30,7 @@ module.exports = class Turno {
 
 
    //metodos 
-   mostrarTurno = () => {
 
-   }
-   estoyDisponible = () => {
-
-   }
    esCancelable = () => {
       const actual = this.cambioEstadoTurno.find(cambio => cambio.esActual())
       return actual.esCancelable()
@@ -46,6 +43,20 @@ module.exports = class Turno {
          fechaHoraInicio: this.fechaHoraInicio,
          fechaHoraFin: this.fechaHoraFin,
       }
+   }
+
+   cancelar = estadoCanceladoXMantenimientoCorrectivo => {
+      const actual = this.cambioEstadoTurno.find(cambio => cambio.esActual())
+      actual.setFechaHoraHasta(new Date())
+
+      const index = db.CambioEstadoTurno.push(new CambioEstadoTurno({
+         id: db.CambioEstadoTurno.length,
+         fechaHoraDesde: new Date(),
+         estado: estadoCanceladoXMantenimientoCorrectivo
+      }))
+
+      this.cambioEstadoTurno.push(db.CambioEstadoTurno[index - 1])
+
    }
 
    //getters and setters

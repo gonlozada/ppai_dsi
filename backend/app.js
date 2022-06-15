@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const db = require('./db')
+global.db = require('./db')
 
 const GestorRegistrarMantenimientoCorrectivo = require('./gestores/GestorRegistrarMantenimientoCorrectivo')
 
@@ -34,6 +34,10 @@ app.post('/opcionRegistrarRTEnMantenimientoCorrectivo/tomarDatosMantenimiento', 
    res.json(resp)
 })
 
+app.post('/opcionRegistrarRTEnMantenimientoCorrectivo/tomarConfirmacion', (req, res) => {
+   const resp = gestor.tomarConfirmacion(req.body)
+   res.json(resp)
+})
 
 const port = process.env.PORT || 8085;
 
